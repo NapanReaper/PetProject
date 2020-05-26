@@ -48,32 +48,34 @@ public class MainController {
         ModelAndView m = new ModelAndView("home");
         return m;
     }
+
     @GetMapping(value = "/users")
-     @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<Users> getAllUsers() {
         return usersRepository.findAll();
     }
-     @PreAuthorize("hasAuthority('ADMIN')")
+
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/users")
     Users createUsers(@RequestBody Users newUsers) {
         newUsers.setStatus(true);
         return usersRepository.save(newUsers);
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users/{id}")
     Optional<Users> getUsersById(@PathVariable Long id) {
         return usersRepository.findById(id);
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/users/{id}")
     Users updateUsers(@RequestBody Users newUsers, @PathVariable Long id) {
         Optional<Users> u = usersRepository.findById(id);
-//        u.get().setName(newUsers.getName());
-//        u.get().setEmail(newUsers.getEmail());
-//        u.get().setPassword(newUsers.getPassword());
         u.get().setStatus(newUsers.isStatus());
         return usersRepository.save(u.get());
     }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/users/{id}")
     void deleteUsers(@PathVariable Long id) {

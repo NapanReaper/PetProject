@@ -38,18 +38,11 @@ public class Users implements Serializable {
     private String address;
     @Column(name = "phone")
     private String phone;
-    @Column(name="status")
+    @Column(name = "status")
     private boolean status;
     @ManyToOne
     @JoinColumn(name = "roleID", referencedColumnName = "id")
     private Roles role;
-//    @JsonIgnoreProperties(value = {"listUsers"})
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-//    private Set<Roles> listRoles;    
-
-    
 
     public Roles getRole() {
         return role;
